@@ -10,8 +10,11 @@ import {
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { selectSearchValue } from '../redux/controls/selectors';
-import { setSearchValue } from '../redux/controls/slice';
+import {
+  selectSearchValue,
+  selectSortingBy,
+} from '../redux/controls/selectors';
+import { setSearchValue, setSortingBy } from '../redux/controls/slice';
 import { useAppDispatch } from '../redux/store';
 
 const Wrapper = styled.div`
@@ -26,11 +29,20 @@ const Wrapper = styled.div`
 export const Controls = () => {
   const dispatch = useAppDispatch();
   const searchValue = useSelector(selectSearchValue);
+  const sortingBy = useSelector(selectSortingBy);
 
   const handleSearch = (evt) => {
     dispatch(setSearchValue(evt.target.value));
   };
-  
+
+  const handleSortSelect = (sortingBy) => {
+    dispatch(setSortingBy(sortingBy.target.value));
+  };
+
+  const onClear = () => {
+    dispatch(setSearchValue(''));
+  };
+
   return (
     <Wrapper>
       <OutlinedInput
@@ -40,7 +52,7 @@ export const Controls = () => {
           </InputAdornment>
         }
         endAdornment={
-          <InputAdornment position="end">
+          <InputAdornment position="end" onClick={onClear}>
             <Clear />
           </InputAdornment>
         }
@@ -49,29 +61,25 @@ export const Controls = () => {
         value={searchValue}
         size="small"
       />
-      {/* <FormControl sx={{ width: 200 }}>
+      <FormControl sx={{ width: 200 }}>
         <InputLabel>Categories</InputLabel>
         <Select size="small">
-          <MenuItem value="">
-            <em>all</em>
-          </MenuItem>
-          <MenuItem value={'art'}>art</MenuItem>
-          <MenuItem value={'biography'}>biography</MenuItem>
-          <MenuItem value={'computers'}>computers</MenuItem>
-          <MenuItem value={'history'}>history</MenuItem>
-          <MenuItem value={'medical'}>medical</MenuItem>
-          <MenuItem value={'poetry'}>poetry</MenuItem>
+          <MenuItem value="all">all</MenuItem>
+          <MenuItem value="art">art</MenuItem>
+          <MenuItem value="biography">biography</MenuItem>
+          <MenuItem value="computers">computers</MenuItem>
+          <MenuItem value="history">history</MenuItem>
+          <MenuItem value="medical">medical</MenuItem>
+          <MenuItem value="poetry">poetry</MenuItem>
         </Select>
       </FormControl>
       <FormControl sx={{ width: 200 }}>
         <InputLabel>Sorting by</InputLabel>
-        <Select size="small">
-          <MenuItem value="relevance">
-            <em>relevance</em>
-          </MenuItem>
-          <MenuItem value={'newest'}>newest</MenuItem>
+        <Select size="small" onChange={handleSortSelect} value={sortingBy}>
+          <MenuItem value="relevance">relevance</MenuItem>
+          <MenuItem value="newest">newest</MenuItem>
         </Select>
-      </FormControl> */}
+      </FormControl>
     </Wrapper>
   );
 };
