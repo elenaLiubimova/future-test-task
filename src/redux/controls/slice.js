@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   searchValue: null,
-  category: '',
+  category: 'all',
   sortingBy: 'relevance',
 };
 
@@ -14,7 +14,7 @@ const controlsSlice = createSlice({
       state.searchValue = action.payload;
     },
     setCategory(state, action) {
-      state.searchValue = action.payload;
+      state.category = action.payload;
     },
     setSortingBy(state, action) {
       state.sortingBy = action.payload;

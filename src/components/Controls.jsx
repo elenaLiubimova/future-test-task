@@ -11,10 +11,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
+  selectCategory,
   selectSearchValue,
   selectSortingBy,
 } from '../redux/controls/selectors';
-import { setSearchValue, setSortingBy } from '../redux/controls/slice';
+import { setCategory, setSearchValue, setSortingBy } from '../redux/controls/slice';
 import { useAppDispatch } from '../redux/store';
 
 const Wrapper = styled.div`
@@ -30,9 +31,14 @@ export const Controls = () => {
   const dispatch = useAppDispatch();
   const searchValue = useSelector(selectSearchValue);
   const sortingBy = useSelector(selectSortingBy);
+  const category = useSelector(selectCategory);
 
   const handleSearch = (evt) => {
     dispatch(setSearchValue(evt.target.value));
+  };
+
+  const handleCategorySelect = (category) => {
+    dispatch(setCategory(category.target.value));
   };
 
   const handleSortSelect = (sortingBy) => {
@@ -63,7 +69,7 @@ export const Controls = () => {
       />
       <FormControl sx={{ width: 200 }}>
         <InputLabel>Categories</InputLabel>
-        <Select size="small">
+        <Select size="small" onChange={handleCategorySelect} value={category}>
           <MenuItem value="all">all</MenuItem>
           <MenuItem value="art">art</MenuItem>
           <MenuItem value="biography">biography</MenuItem>

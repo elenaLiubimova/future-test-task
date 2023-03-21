@@ -4,7 +4,11 @@ import CardItem from '../components/CardItem';
 import List from '../components/List';
 import { fetchBooks } from '../redux/books/asyncActions';
 import { selectBooksData } from '../redux/books/selectors';
-import { selectCategory, selectSearchValue, selectSortingBy } from '../redux/controls/selectors';
+import {
+  selectCategory,
+  selectSearchValue,
+  selectSortingBy,
+} from '../redux/controls/selectors';
 import { useAppDispatch } from '../redux/store';
 
 const Home = () => {
@@ -13,16 +17,29 @@ const Home = () => {
   const category = useSelector(selectCategory);
   const searchValue = useSelector(selectSearchValue);
   const sortingBy = useSelector(selectSortingBy);
-  console.log(books)
 
   useEffect(() => {
     dispatch(fetchBooks({ searchValue, sortingBy }));
-  }, [dispatch, searchValue, sortingBy]);
+  }, [dispatch, searchValue, sortingBy, category]);
 
-  const renderCards = () => {
-    return (books.data.items).filter((book) => (
-      book.volumeInfo.categories[0].toLowerCase().includes(category.toLowerCase()) && <CardItem
-        img={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : ''}
+  const filterBooks = () => {
+    const filteredBooks = (books?.data?.items).filter(
+      (book) =>
+        book.volumeInfo.categories &&
+        book.volumeInfo.categories[0]
+          .toLowerCase()
+          .includes(category.toLowerCase())
+    );
+    console.log(filteredBooks);
+    return filteredBooks;
+  };
+
+  const renderCards = (booksArray) => {
+    return booksArray.map((book) => (
+      <CardItem
+        img={
+          book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : ''
+        }
         category={book.volumeInfo.authors ? book.volumeInfo.authors[0] : ''}
         name={book.volumeInfo.title}
         author={book.volumeInfo.authors ? book.volumeInfo.authors[0] : ''}
@@ -34,10 +51,7 @@ const Home = () => {
     <>
       {status === 'error' && <h2> Failed to fetch data </h2>}
       {status === 'loading' && <h2> Loading... </h2>}
-      {
-        status === 'success' && <List>{renderCards()}</List>
-        // <p>loaded</p>
-      }
+      {status === 'success' && <List>{category === 'all' ? renderCards(books.data.items) : renderCards(filterBooks())}</List>}
     </>
   );
 };
