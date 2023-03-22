@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  row-gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
   justify-items: center;
 `;
 

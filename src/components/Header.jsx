@@ -7,15 +7,22 @@ import { Controls } from './Controls';
 const Title = styled(Link).attrs({
   to: '/',
 })`
-  text-decoration: none;
   flex-grow: 1;
+  text-decoration: none;
+    :visited {
+      color: black;
+    }
 `;
 
 const Header = () => {
   return (
-    <AppBar color="transparent" position="static">
+    <AppBar color="transparent" position="static" sx={{
+      backgroundColor: '#b4ecc7'
+    }}>
       <Title>
-        <Typography variant="h4" align="center" component="h1">
+        <Typography variant="h4" align="center" component="h1" sx={{
+            padding: '20px 0 10px',
+          }}>
           Search for books
         </Typography>
       </Title>

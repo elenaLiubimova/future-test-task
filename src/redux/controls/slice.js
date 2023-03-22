@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  searchValue: null,
+  searchValue: '',
+  searchState: false,
   category: 'all',
   sortingBy: 'relevance',
 };
@@ -13,6 +14,9 @@ const controlsSlice = createSlice({
     setSearchValue(state, action) {
       state.searchValue = action.payload;
     },
+    setSearchState(state, action) {
+      state.searchState = !state.searchState;
+    },
     setCategory(state, action) {
       state.category = action.payload;
     },
@@ -22,7 +26,7 @@ const controlsSlice = createSlice({
   },
 });
 
-export const { setSearchValue, setCategory, setSortingBy } =
+export const { setSearchValue, setSearchState, setCategory, setSortingBy } =
   controlsSlice.actions;
 
 export default controlsSlice.reducer;

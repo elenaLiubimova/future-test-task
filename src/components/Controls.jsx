@@ -12,10 +12,16 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
   selectCategory,
+  selectSearchState,
   selectSearchValue,
   selectSortingBy,
 } from '../redux/controls/selectors';
-import { setCategory, setSearchValue, setSortingBy } from '../redux/controls/slice';
+import {
+  setCategory,
+  setSearchState,
+  setSearchValue,
+  setSortingBy,
+} from '../redux/controls/slice';
 import { useAppDispatch } from '../redux/store';
 
 const Wrapper = styled.div`
@@ -32,9 +38,14 @@ export const Controls = () => {
   const searchValue = useSelector(selectSearchValue);
   const sortingBy = useSelector(selectSortingBy);
   const category = useSelector(selectCategory);
+  const searchState = useSelector(selectSearchState);
 
-  const handleSearch = (evt) => {
+  const handleSearchInput = (evt) => {
     dispatch(setSearchValue(evt.target.value));
+  };
+
+  const handleSearchState = () => {
+    dispatch(setSearchState(searchState));
   };
 
   const handleCategorySelect = (category) => {
@@ -47,23 +58,40 @@ export const Controls = () => {
 
   const onClear = () => {
     dispatch(setSearchValue(''));
+    dispatch(setSearchState(searchState));
   };
+
+  const handlePressEnter = (evt) => {
+    if(evt.key === 'Enter') {
+      dispatch(setSearchState(searchState));
+    }
+  }
 
   return (
     <Wrapper>
       <OutlinedInput
+        onKeyUp={handlePressEnter}
         startAdornment={
           <InputAdornment position="start">
-            <SearchOutlined />
+            <SearchOutlined
+              onClick={handleSearchState}
+              sx={{
+                cursor: 'pointer',
+              }}
+            />
           </InputAdornment>
         }
         endAdornment={
           <InputAdornment position="end" onClick={onClear}>
-            <Clear />
+            <Clear
+              sx={{
+                cursor: 'pointer',
+              }}
+            />
           </InputAdornment>
         }
         placeholder="Search for a book"
-        onChange={handleSearch}
+        onChange={handleSearchInput}
         value={searchValue}
         size="small"
       />
@@ -75,7 +103,7 @@ export const Controls = () => {
           <MenuItem value="biography">biography</MenuItem>
           <MenuItem value="computers">computers</MenuItem>
           <MenuItem value="history">history</MenuItem>
-          <MenuItem value="medical">medical</MenuItem>
+          <MenuItem value="medic">medical</MenuItem>
           <MenuItem value="poetry">poetry</MenuItem>
         </Select>
       </FormControl>

@@ -10,6 +10,8 @@ export const fetchBooks = createAsyncThunk(
       `https://www.googleapis.com/books/v1/volumes?q=${searchValue}&orderBy=${sortingBy}&key&AIzaSyAkbWtwHTneh1WtIj0lI4-RtWMUnMmSeuU&maxResults=30`
     );
 
+    console.log(books);
+
     return books;
   }
 );
