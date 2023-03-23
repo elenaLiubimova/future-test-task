@@ -103,7 +103,7 @@ export const Controls = () => {
           <MenuItem value="biography">biography</MenuItem>
           <MenuItem value="computers">computers</MenuItem>
           <MenuItem value="history">history</MenuItem>
-          <MenuItem value="medic">medical</MenuItem>
+          <MenuItem value="medical">medical</MenuItem>
           <MenuItem value="poetry">poetry</MenuItem>
         </Select>
       </FormControl>

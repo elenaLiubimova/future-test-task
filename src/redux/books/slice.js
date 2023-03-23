@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchBooks } from "./asyncActions";
 
 const initialState = {
-  books: {},
-  status: 'loading'
+  books: [],
+  status: 'loading',
 };
 
 const booksSlice = createSlice({
@@ -11,29 +11,27 @@ const booksSlice = createSlice({
   initialState,
   reducers: {
     setBooks(state, action) {
-      state.books = action.payload;
+      state.books = [...state.books, action.payload];
     },
   },
 
   extraReducers: (builder) => {
     builder.addCase(fetchBooks.pending, (state) => {
-      state.books = {};
       state.status = 'loading';
     });
 
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      state.books = action.payload;
-      console.log(state.books)
+      state.books.push(...action.payload);
       state.status = 'success';
     });
 
     builder.addCase(fetchBooks.rejected, (state) => {
-      state.books = {};
+      state.books = [];
       state.status = 'error';
     });
   },
 });
 
-export const { setBooks } = booksSlice.actions;
+export const { setBooks, setMoreBooks } = booksSlice.actions;
 
 export default booksSlice.reducer;
