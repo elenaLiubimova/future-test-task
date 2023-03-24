@@ -42,6 +42,7 @@ const Home = () => {
         category={book.volumeInfo.categories ? book.volumeInfo.categories[0] : ''}
         name={book.volumeInfo.title}
         author={book.volumeInfo.authors ? book.volumeInfo.authors[0] : ''}
+        id={book.id}
       />
     ));
   };

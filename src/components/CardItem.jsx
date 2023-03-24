@@ -1,7 +1,10 @@
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const CardItem = ({ img, category, name, author }) => {
+const CardItem = ({ img, category, name, author, id }) => {
+  const navigate = useNavigate();
+  
   return (
     <Card
       sx={{
@@ -11,6 +14,7 @@ const CardItem = ({ img, category, name, author }) => {
         backgroundSize: 'contain',
         cursor: 'pointer',
       }}
+      onClick={() => navigate(`/books/${id}`)}
     >
       <CardMedia
         sx={{
