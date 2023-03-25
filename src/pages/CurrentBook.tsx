@@ -36,7 +36,9 @@ const CurrentBook = () => {
   const currentBook = useSelector(selectCurrentBookData);
 
   useEffect(() => {
-    dispatch(fetchCurrentBook(id));
+    if (id) {
+      dispatch(fetchCurrentBook(id));
+    }
   }, [dispatch, id]);
 
   return (
@@ -47,7 +49,7 @@ const CurrentBook = () => {
         <BookInfo>
           <BookImage
             src={
-              currentBook.volumeInfo.imageLinks
+              currentBook && currentBook.volumeInfo.imageLinks
                 ? currentBook.volumeInfo.imageLinks.thumbnail
                 : ''
             }

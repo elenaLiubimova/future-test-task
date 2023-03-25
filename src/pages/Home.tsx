@@ -18,6 +18,7 @@ import {
 import { setIsClearBooks, setStartPageIndex } from '../redux/books/slice';
 import { useAppDispatch } from '../redux/store';
 import { paginationStep } from '../utils/constants';
+import { Book } from '../types/types';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ const Home = () => {
 
   // console.log(books)
 
-  const renderCards = (booksArray) => {
+  const renderCards = (booksArray: Book[]) => {
     return booksArray.map((book) => (
       <CardItem
         img={

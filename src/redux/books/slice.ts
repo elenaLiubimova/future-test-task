@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchBooks } from './asyncActions';
+import { BooksSliceState } from './types';
 
-const initialState = {
+const initialState: BooksSliceState = {
   booksData: {
     books: [],
-    totalBooksAmount: null,
+    totalBooksAmount: 0,
   },
   status: 'loading',
-  startPageIndex: 0,
+  startPageIndex: '0',
   isClearBooks: true,
 };
 
@@ -23,6 +24,7 @@ const booksSlice = createSlice({
     },
     setBooks(state, action) {
       state.booksData.books.push(...action.payload);
+      
     },
     clearBooks(state) {
       state.booksData.books = [];
@@ -43,7 +45,7 @@ const booksSlice = createSlice({
 
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
       state.booksData.books.push(...action.payload.items);
-      state.booksData.totalBooksAmount = action.payload.totalItems
+      state.booksData.totalBooksAmount = action.payload.totalItems;
 
       state.status = 'success';
     });
@@ -58,7 +60,6 @@ const booksSlice = createSlice({
 export const {
   setBooks,
   setTotalBooksAmount,
-  setMoreBooks,
   setStartPageIndex,
   clearBooks,
   setIsClearBooks,

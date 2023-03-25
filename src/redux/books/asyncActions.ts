@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Books, BooksProps } from './types';
 
-export const fetchBooks = createAsyncThunk(
+export const fetchBooks = createAsyncThunk<Books, BooksProps>(
   'books/fetchBooksStatus',
-  async (params) => {
+  async (props) => {
     try {
-      const { searchValue, sortingBy, category, startPageIndex } = params;
-      const booksData = await axios.get(
+      const { searchValue, sortingBy, category, startPageIndex } = props;
+      const booksData = await axios.get<Books>(
         `https://www.googleapis.com/books/v1/volumes?q=${searchValue}${
           category === 'all' ? '' : '+subject:' + category
         }&startIndex=${startPageIndex}&maxResults=30&orderBy=${sortingBy}&key&AIzaSyAkbWtwHTneh1WtIj0lI4-RtWMUnMmSeuU`

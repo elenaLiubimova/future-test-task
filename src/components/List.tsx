@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ChildrenType } from '../types/types';
 
 const Wrapper = styled.section`
   display: grid;
@@ -7,7 +8,7 @@ const Wrapper = styled.section`
   justify-items: center;
 `;
 
-const List = ({ children }) => {
+const List = ({ children }: ChildrenType) => {
   return <Wrapper>{children}</Wrapper>;
 };
 

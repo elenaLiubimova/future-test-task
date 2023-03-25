@@ -1,6 +1,7 @@
 import { Container } from './Container';
+import { ChildrenType } from '../types/types';
 
-const Main = ({ children }) => {
+const Main = ({ children }: ChildrenType) => {
   return <Container>{children}</Container>;
 };
 

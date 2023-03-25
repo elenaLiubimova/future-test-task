@@ -4,7 +4,7 @@ import { baseUrl } from "../../utils/constants";
 
 export const fetchCurrentBook = createAsyncThunk(
   'books/fetchCurrentBookStatus',
-  async (id) => {
+  async (id: string) => {
     try {
       const currentBookData = await axios.get(
         `${baseUrl}/${id}`

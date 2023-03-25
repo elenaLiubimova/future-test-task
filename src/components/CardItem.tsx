@@ -2,7 +2,15 @@ import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const CardItem = ({ img, category, name, author, id }) => {
+type CardItemProps = {
+  img: string; 
+  category: string; 
+  name: string; 
+  author: string; 
+  id: string;
+};
+
+const CardItem: React.FC<CardItemProps> = ({ img, category, name, author, id }) => {
   const navigate = useNavigate();
   
   return (

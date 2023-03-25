@@ -16,7 +16,7 @@ const Title = styled(Link).attrs({
   }
 `;
 
-const Header = () => {
+const Header: React.FC = () => {
   const books = useSelector(selectBooksData);
   const totalBooksAmount = useSelector(selectTotalBooksAmount);
   

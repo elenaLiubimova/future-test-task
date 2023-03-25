@@ -7,7 +7,7 @@ import {
   OutlinedInput,
   Select,
 } from '@mui/material';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
@@ -33,14 +33,14 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Controls = () => {
+export const Controls: React.FC = () => {
   const dispatch = useAppDispatch();
   const searchValue = useSelector(selectSearchValue);
   const sortingBy = useSelector(selectSortingBy);
   const category = useSelector(selectCategory);
   const searchState = useSelector(selectSearchState);
 
-  const handleSearchInput = (evt) => {
+  const handleSearchInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchValue(evt.target.value));
   };
 
@@ -48,11 +48,11 @@ export const Controls = () => {
     dispatch(setSearchState(searchState));
   };
 
-  const handleCategorySelect = (category) => {
+  const handleCategorySelect = (category: any) => {
     dispatch(setCategory(category.target.value));
   };
 
-  const handleSortSelect = (sortingBy) => {
+  const handleSortSelect = (sortingBy: any) => {
     dispatch(setSortingBy(sortingBy.target.value));
   };
 
@@ -61,7 +61,7 @@ export const Controls = () => {
     dispatch(setSearchState(searchState));
   };
 
-  const handlePressEnter = (evt) => {
+  const handlePressEnter = (evt: React.KeyboardEvent) => {
     if(evt.key === 'Enter') {
       dispatch(setSearchState(searchState));
     }
