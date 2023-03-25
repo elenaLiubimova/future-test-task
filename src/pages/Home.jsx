@@ -5,16 +5,14 @@ import CardItem from '../components/CardItem';
 import { Container } from '../components/Container';
 import List from '../components/List';
 import { fetchBooks } from '../redux/books/asyncActions';
-import { selectBooksData, selectBooksStatus } from '../redux/books/selectors';
-import { setBooks } from '../redux/books/slice';
+import { selectBooksData, selectBooksStatus, selectIsClearBooks, selectStartPageIndex } from '../redux/books/selectors';
 import {
   selectCategory,
   selectSearchState,
   selectSearchValue,
   selectSortingBy,
 } from '../redux/controls/selectors';
-import { selectStartIndex } from '../redux/pagination/selectors';
-import { setStartIndex } from '../redux/pagination/slice';
+import { setIsClearBooks, setStartPageIndex } from '../redux/books/slice';
 import { useAppDispatch } from '../redux/store';
 
 const Home = () => {
@@ -25,11 +23,13 @@ const Home = () => {
   const searchValue = useSelector(selectSearchValue);
   const sortingBy = useSelector(selectSortingBy);
   const searchState = useSelector(selectSearchState);
-  const startIndex = useSelector(selectStartIndex);
+  const startPageIndex = useSelector(selectStartPageIndex);
+  const isClearBooks = useSelector(selectIsClearBooks);
 
   useEffect(() => {
-    dispatch(fetchBooks({ searchValue, sortingBy, category, startIndex }));
-  }, [dispatch, sortingBy, category, searchState, category, startIndex]);
+    dispatch(fetchBooks({ searchValue, sortingBy, category, startPageIndex }));
+    dispatch(setIsClearBooks(true));
+  }, [dispatch, sortingBy, searchState, category, startPageIndex]);
 
   console.log(books)
 
@@ -37,20 +37,19 @@ const Home = () => {
     return booksArray.map((book) => (
       <CardItem
         img={
-          book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : ''
+          book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : ' '
         }
-        category={book.volumeInfo.categories ? book.volumeInfo.categories[0] : ''}
+        category={book.volumeInfo.categories ? book.volumeInfo.categories[0] : ' '}
         name={book.volumeInfo.title}
-        author={book.volumeInfo.authors ? book.volumeInfo.authors[0] : ''}
+        author={book.volumeInfo.authors ? book.volumeInfo.authors[0] : ' '}
         id={book.id}
       />
     ));
   };
 
-  const loadMoreBooks = () => {
-    dispatch(setStartIndex(30));
-    console.log(books)
-    // dispatch(setBooks(books));
+  const loadNextPage = () => {
+    dispatch(setIsClearBooks(false));
+    dispatch(setStartPageIndex(30));
   }
 
   return (
@@ -58,10 +57,9 @@ const Home = () => {
       {status === 'error' && <List><h2> Failed to fetch data </h2></List>}
       {status === 'loading' && <List><h2> Loading... </h2></List>}
       {status === 'success' && <List>
-      {/* {renderCards(books.data.items)} */}
       {renderCards(books)}   
       </List>}
-      <Button variant="outlined" onClick={loadMoreBooks}>Load more</Button>
+      <Button variant="outlined" onClick={loadNextPage}>Load more</Button>
     </>
   );
 };
