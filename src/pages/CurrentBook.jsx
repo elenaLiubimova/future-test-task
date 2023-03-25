@@ -9,6 +9,7 @@ import {
   selectCurrentBookStatus,
 } from '../redux/currentBook/selectors';
 import { fetchCurrentBook } from '../redux/currentBook/asyncActions';
+import parse from 'html-react-parser';
 
 const Wrapper = styled.div`
   padding: 20px 0;
@@ -67,7 +68,7 @@ const CurrentBook = () => {
             </Typography>
             <Typography variant="body2" component="div">
               {currentBook.volumeInfo.description
-                ? currentBook.volumeInfo.description
+                ? parse(currentBook.volumeInfo.description)
                 : ' no description '}
             </Typography>
           </BookDescription>
