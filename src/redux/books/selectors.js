@@ -1,6 +1,8 @@
 export const selectBooksStatus = (state) => state.books.status;
 
-export const selectBooksData = (state) => state.books.books;
+export const selectTotalBooksAmount = (state) => state.books.booksData.totalBooksAmount;
+
+export const selectBooksData = (state) => state.books.booksData.books;
 
 export const selectStartPageIndex = (state) => state.books.startPageIndex;
 

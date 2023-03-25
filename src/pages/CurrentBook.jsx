@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { Typography } from '@mui/material';
@@ -38,8 +38,6 @@ const CurrentBook = () => {
     dispatch(fetchCurrentBook(id));
   }, [dispatch, id]);
 
-  console.log(currentBook);
-
   return (
     <Wrapper>
       {status === 'error' && <h2> Failed to fetch data </h2>}
@@ -48,28 +46,28 @@ const CurrentBook = () => {
         <BookInfo>
           <BookImage
             src={
-              currentBook.data.volumeInfo.imageLinks
-                ? currentBook.data.volumeInfo.imageLinks.thumbnail
+              currentBook.volumeInfo.imageLinks
+                ? currentBook.volumeInfo.imageLinks.thumbnail
                 : ''
             }
           />
           <BookDescription>
             <Typography gutterBottom variant="body2" component="p">
-              {currentBook.data.volumeInfo.categories
-                ? currentBook.data.volumeInfo.categories[0]
+              {currentBook.volumeInfo.categories
+                ? currentBook.volumeInfo.categories[0]
                 : ' '}
             </Typography>
             <Typography variant="h5" component="h2">
-              {currentBook.data.volumeInfo.title}
+              {currentBook.volumeInfo.title}
             </Typography>
             <Typography variant="body2" component="p">
-              {currentBook.data.volumeInfo.authors
-                ? currentBook.data.volumeInfo.authors[0]
+              {currentBook.volumeInfo.authors
+                ? currentBook.volumeInfo.authors[0]
                 : ' '}
             </Typography>
             <Typography variant="body2" component="div">
-              {currentBook.data.volumeInfo.description
-                ? currentBook.data.volumeInfo.description
+              {currentBook.volumeInfo.description
+                ? currentBook.volumeInfo.description
                 : ' no description '}
             </Typography>
           </BookDescription>

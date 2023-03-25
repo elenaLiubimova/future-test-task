@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchCurrentBook } from "./asyncActions";
 
 const initialState = {
-  currentBook: {},
+  currentBook: null,
   status: 'loading',
 };
 
@@ -17,7 +17,7 @@ const currentBookSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchCurrentBook.pending, (state) => {
-      state.currentBook = {};
+      state.currentBook = null;
       state.status = 'loading';
     });
 
@@ -27,7 +27,7 @@ const currentBookSlice = createSlice({
     });
 
     builder.addCase(fetchCurrentBook.rejected, (state) => {
-      state.currentBook = {};
+      state.currentBook = null;
       state.status = 'error';
     });
   },

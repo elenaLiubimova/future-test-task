@@ -8,7 +8,7 @@ export const store = configureStore({
   reducer: {
     books,
     controls,
-    currentBook
+    currentBook,
   },
 });
 

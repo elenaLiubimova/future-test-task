@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchBooks } from './asyncActions';
 
 const initialState = {
-  books: [],
+  booksData: {
+    books: [],
+    totalBooksAmount: null,
+  },
   status: 'loading',
   startPageIndex: 0,
   isClearBooks: true,
@@ -12,14 +15,17 @@ const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
+    setTotalBooksAmount(state, action) {
+      state.booksData.totalBooksAmount = action.payload;
+    },
     setStartPageIndex(state, action) {
       state.startPageIndex += action.payload;
     },
     setBooks(state, action) {
-      state.books.push(...action.payload);
+      state.booksData.books.push(...action.payload);
     },
     clearBooks(state) {
-      state.books = [];
+      state.booksData.books = [];
     },
     setIsClearBooks(state, action) {
       state.isClearBooks = action.payload;
@@ -29,20 +35,21 @@ const booksSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchBooks.pending, (state) => {
       if (state.isClearBooks) {
-        state.books = [];
+        state.booksData.books = [];
       }
 
       state.status = 'loading';
     });
 
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      state.books.push(...action.payload);
+      state.booksData.books.push(...action.payload.items);
+      state.booksData.totalBooksAmount = action.payload.totalItems
 
       state.status = 'success';
     });
 
     builder.addCase(fetchBooks.rejected, (state) => {
-      state.books = [];
+      state.booksData.books = [];
       state.status = 'error';
     });
   },
@@ -50,6 +57,7 @@ const booksSlice = createSlice({
 
 export const {
   setBooks,
+  setTotalBooksAmount,
   setMoreBooks,
   setStartPageIndex,
   clearBooks,
