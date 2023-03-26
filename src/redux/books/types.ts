@@ -8,7 +8,7 @@ type BooksData = {
 export type BooksSliceState = {
   booksData: BooksData;
   status: string;
-  startPageIndex: string;
+  startPageIndex: number;
   isClearBooks: boolean;
 }
 

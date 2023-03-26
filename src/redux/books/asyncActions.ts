@@ -1,20 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { apiKey, baseUrl } from '../../utils/constants';
 import { Books, BooksProps } from './types';
 
-export const fetchBooks = createAsyncThunk<Books, BooksProps>(
+export const fetchBooks = createAsyncThunk<Books | string, BooksProps>(
   'books/fetchBooksStatus',
   async (props) => {
     try {
       const { searchValue, sortingBy, category, startPageIndex } = props;
-      const booksData = await axios.get<Books>(
-        `https://www.googleapis.com/books/v1/volumes?q=${searchValue}${
+      const booksData = await axios.get(
+        `${baseUrl}?q=+intitle:${searchValue}${
           category === 'all' ? '' : '+subject:' + category
-        }&startIndex=${startPageIndex}&maxResults=30&orderBy=${sortingBy}&key&AIzaSyAkbWtwHTneh1WtIj0lI4-RtWMUnMmSeuU`
+        }&startIndex=${startPageIndex}&maxResults=30&orderBy=${sortingBy}&key&${apiKey}`
       );
-  
       return booksData.data;
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

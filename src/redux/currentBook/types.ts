@@ -1,4 +1,6 @@
-// export type CurrentBookSliceState = {
-//   currentBook: null,
-//   status: string,
-// }
+import { Book } from "../../types/types";
+
+export type CurrentBookSliceState = {
+  currentBook: Book | {},
+  status: string,
+}

@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Categories, ControlsSliceState, SortingBy } from './types';
 
-const initialState = {
-  searchValue: 'book',
+const initialState: ControlsSliceState = {
+  searchValue: '',
   searchState: false,
-  category: 'all',
-  sortingBy: 'relevance',
+  category: Categories.ALL,
+  sortingBy: SortingBy.RELEVANCE,
 };
 
 const controlsSlice = createSlice({
@@ -14,7 +15,7 @@ const controlsSlice = createSlice({
     setSearchValue(state, action) {
       state.searchValue = action.payload;
     },
-    setSearchState(state, action) {
+    setSearchState(state) {
       state.searchState = !state.searchState;
     },
     setCategory(state, action) {

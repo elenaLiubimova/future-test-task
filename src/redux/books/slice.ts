@@ -8,7 +8,7 @@ const initialState: BooksSliceState = {
     totalBooksAmount: 0,
   },
   status: 'loading',
-  startPageIndex: '0',
+  startPageIndex: 0,
   isClearBooks: true,
 };
 
@@ -24,7 +24,6 @@ const booksSlice = createSlice({
     },
     setBooks(state, action) {
       state.booksData.books.push(...action.payload);
-      
     },
     clearBooks(state) {
       state.booksData.books = [];
@@ -44,8 +43,10 @@ const booksSlice = createSlice({
     });
 
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      state.booksData.books.push(...action.payload.items);
-      state.booksData.totalBooksAmount = action.payload.totalItems;
+      if (typeof action.payload !== 'string') {
+        state.booksData.books.push(...action.payload.items);
+        state.booksData.totalBooksAmount = action.payload.totalItems;
+      }
 
       state.status = 'success';
     });

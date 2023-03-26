@@ -1,5 +1,5 @@
 const NotFound: React.FC = () => {
-  return <div>This page doesn't exist</div>;
+  return <h2>This page doesn't exist</h2>;
 };
 
 export default NotFound;

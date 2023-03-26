@@ -7,7 +7,7 @@ import {
   OutlinedInput,
   Select,
 } from '@mui/material';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
