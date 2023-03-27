@@ -12,4 +12,4 @@ React-приложение поиска книг с помощью Google Books 
 ## [Деплой](https://helpful-queijadas-408f30.netlify.app/)
 
 
-![Иллюстрация к проекту](https://github.com/elenaLiubimova/projectsGifs/raw/main/src/images/screengif.gif)
+![Иллюстрация к проекту](https://github.com/elenaLiubimova/projectsGifs/raw/main/screengif.gif)
