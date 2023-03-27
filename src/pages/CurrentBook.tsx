@@ -12,6 +12,7 @@ import { fetchCurrentBook } from '../redux/currentBook/asyncActions';
 import parse from 'html-react-parser';
 import { Book } from '../types/types';
 import { noImageUrl } from '../utils/constants';
+import Loading from '../components/Loading';
 
 const Wrapper = styled.div`
   padding: 20px 0;
@@ -49,7 +50,7 @@ const CurrentBook = () => {
   return (
     <Wrapper>
       {status === 'error' && <h2> Failed to fetch data </h2>}
-      {status === 'loading' && <h2> Loading... </h2>}
+      {status === 'loading' && <Loading />}
       {status === 'success' && currentBook && (
         <BookInfo>
           <BookImage
@@ -58,19 +59,20 @@ const CurrentBook = () => {
                 ? currentBook.volumeInfo.imageLinks.thumbnail
                 : noImageUrl
             }
+            alt="Book title"
           />
           <BookDescription>
             <Typography gutterBottom variant="body2" component="p">
               {currentBook.volumeInfo?.categories
-                ? currentBook.volumeInfo.categories[0]
+                ? currentBook.volumeInfo.categories.join(', ')
                 : ' '}
             </Typography>
             <Typography variant="h5" component="h2">
               {currentBook.volumeInfo?.title}
             </Typography>
-            <Typography variant="body2" component="p">
+            <Typography variant="body2" component="p" sx={{ margin: '10px 0' }}>
               {currentBook.volumeInfo?.authors
-                ? currentBook.volumeInfo?.authors[0]
+                ? currentBook.volumeInfo?.authors.join(', ')
                 : ' '}
             </Typography>
             <Typography variant="body2" component="div">

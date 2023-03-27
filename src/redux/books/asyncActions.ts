@@ -6,16 +6,12 @@ import { Books, BooksProps } from './types';
 export const fetchBooks = createAsyncThunk<Books | string, BooksProps>(
   'books/fetchBooksStatus',
   async (props) => {
-    try {
-      const { searchValue, sortingBy, category, startPageIndex } = props;
-      const booksData = await axios.get(
-        `${baseUrl}?q=+intitle:${searchValue}${
-          category === 'all' ? '' : '+subject:' + category
-        }&startIndex=${startPageIndex}&maxResults=30&orderBy=${sortingBy}&key&${apiKey}`
-      );
-      return booksData.data;
-    } catch (error) {
-      console.log(error);
-    }
+    const { searchValue, sortingBy, category, startPageIndex } = props;
+    const booksData = await axios.get(
+      `${baseUrl}?q=${searchValue}${
+        category === 'all' ? '' : '+subject:' + category
+      }&startIndex=${startPageIndex}&maxResults=30&orderBy=${sortingBy}&key&${apiKey}`
+    );
+    return booksData.data;
   }
 );

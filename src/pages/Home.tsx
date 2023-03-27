@@ -19,6 +19,7 @@ import { setIsClearBooks, setStartPageIndex } from '../redux/books/slice';
 import { useAppDispatch } from '../redux/store';
 import { noImageUrl, paginationStep } from '../utils/constants';
 import { Book } from '../types/types';
+import Loading from '../components/Loading';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -62,13 +63,13 @@ const Home = () => {
     <>
       {status === 'error' && (
         <List>
-          <h2>Failed to fetch data</h2>
+          {books.length === 0 && <h2>Enter title or author of the book</h2>}
+          {books.length !== 0 && <h2>Failed to fetch data</h2>}
         </List>
       )}
-      {status === 'loading' && (
-        <List>
-          <h2> Loading... </h2>
-        </List>
+      {status === 'loading' && <Loading />}
+      {status === 'loading' && Number(startPageIndex) !== 0 && (
+        <List>{renderCards(books)}</List>
       )}
       {status === 'success' && <List>{renderCards(books)}</List>}
       {books.length > 0 && (
@@ -77,7 +78,8 @@ const Home = () => {
           onClick={loadNextPage}
           sx={{ marginTop: '20px' }}
         >
-          Load more
+          {status === 'loading' && 'Loading...'}
+          {status !== 'loading' && 'Load more'}
         </Button>
       )}
     </>
