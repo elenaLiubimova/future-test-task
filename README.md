@@ -9,6 +9,8 @@ React-приложение поиска книг с помощью Google Books 
 * Styled components
 * Material UI
 
+Приложение тестировалось вручную, с помощью консоли браузера, вкладки "сеть" инструментов разработчика браузера, расширения "Redux DevTools" 
+
 ## [Деплой](https://helpful-queijadas-408f30.netlify.app/)
 
 

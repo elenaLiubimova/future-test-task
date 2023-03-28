@@ -76,7 +76,7 @@ const Home = () => {
         <Button
           variant="outlined"
           onClick={loadNextPage}
-          sx={{ marginTop: '20px' }}
+          sx={{ width: '150px', marginTop: '20px' }}
         >
           {status === 'loading' && 'Loading...'}
           {status !== 'loading' && 'Load more'}

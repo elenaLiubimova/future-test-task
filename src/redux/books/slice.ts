@@ -9,7 +9,7 @@ const initialState: BooksSliceState = {
   },
   status: 'loading',
   startPageIndex: 0,
-  isClearBooks: true,
+  isClearBooks: true, //переменная для очистки списка книг, если совершается новый запрос
 };
 
 const booksSlice = createSlice({
@@ -38,7 +38,6 @@ const booksSlice = createSlice({
       if (state.isClearBooks) {
         state.booksData.books = [];
       }
-
       state.status = 'loading';
     });
 
@@ -46,9 +45,8 @@ const booksSlice = createSlice({
       if (typeof action.payload !== 'string') {
         state.booksData.books.push(...action.payload.items);
         state.booksData.totalBooksAmount = action.payload.totalItems;
+        state.status = 'success';
       }
-
-      state.status = 'success';
     });
 
     builder.addCase(fetchBooks.rejected, (state) => {
